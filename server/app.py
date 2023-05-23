@@ -27,10 +27,11 @@ def animal_by_id(id):
         return response
     
     response_body = f'''
+        <ul>ID: {animal.id}</ul>
         <ul>Name: {animal.name}</ul>
         <ul>Species: {animal.species}</ul>
-        <ul>Zookeeper: {animal.zookeeper}</ul>
-        <ul>Enclosure: {animal.enclosure}</ul>
+        <ul>Zookeeper: {animal.zookeeper.name}</ul>
+        <ul>Enclosure: {animal.enclosure.environment}</ul>
     '''
     response =  make_response(response_body, 200)
     return response
@@ -46,10 +47,12 @@ def zookeeper_by_id(id):
         return response
     
     response_body = f'''
+        <ul>ID: {zookeeper.id}</ul>
         <ul>Name: {zookeeper.name}</ul>
         <ul>Birthday: {zookeeper.birthday}</ul>
-        <ul>Animals</ul>
     '''
+    for animal in zookeeper.animals:
+        response_body += f'<ul>Animal: {animal.name}</ul>'
     response = make_response(response_body, 200)
     return response
 
@@ -63,11 +66,12 @@ def enclosure_by_id(id):
         return response
     
     response_body = f'''
+        <ul>ID: {enclosure.id}</ul>
         <ul>Environment: {enclosure.environment}</ul>
         <ul>Open to Visitors: {enclosure.open_to_visitors}</ul>
-        <ul>Animals:
-        </ul>
     '''
+    for animal in enclosure.animals:
+        response_body += f'<ul>Animal: {animal.name}</ul>'
     response = make_response(response_body, 200)
     return response
 
